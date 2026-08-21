@@ -1,0 +1,17 @@
+[Unit]
+Description=CampusCar Livox Mid-360 ROS 2 bringup and radar safety
+After=network-online.target cyberluban-control.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=haoyu
+SupplementaryGroups=dialout
+WorkingDirectory=/home/haoyu/livox_ws
+ExecStart=/bin/bash -lc 'source /opt/ros/humble/setup.bash && source /home/haoyu/livox_ws/install/setup.bash && exec ros2 launch campuscar_lidar_bringup mid360_vehicle_bringup.launch.py'
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target

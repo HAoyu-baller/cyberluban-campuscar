@@ -1,0 +1,23 @@
+[Unit]
+Description=CyberLubban NUC vehicle control server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=haoyu
+Group=haoyu
+WorkingDirectory=/opt/cyberluban-control
+EnvironmentFile=/etc/cyberluban-control.env
+ExecStart=/opt/cyberluban-control/.venv/bin/python -m nuc.app
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=5
+KillSignal=SIGINT
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

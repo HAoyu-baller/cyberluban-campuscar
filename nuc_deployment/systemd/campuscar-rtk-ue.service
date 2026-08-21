@@ -1,0 +1,24 @@
+[Unit]
+Description=CampusCar RTK to ROS 2 and UE Bridge
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=haoyu
+Group=haoyu
+SupplementaryGroups=dialout
+WorkingDirectory=/home/haoyu/campuscar_ws
+Environment=ROS_DOMAIN_ID=0
+EnvironmentFile=/etc/cyberluban-control.env
+Environment=ROS_LOCALHOST_ONLY=0
+Environment=RCUTILS_COLORIZED_OUTPUT=1
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/bin/bash -lc 'source /opt/ros/humble/setup.bash && source /home/haoyu/campuscar_ws/install/setup.bash && exec ros2 launch u2r_r2u_bridge rtk_ue_bringup.launch.py'
+Restart=always
+RestartSec=3
+TimeoutStopSec=15
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target

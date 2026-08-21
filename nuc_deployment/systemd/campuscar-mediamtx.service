@@ -1,0 +1,17 @@
+[Unit]
+Description=CampusCar MediaMTX camera streaming server
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=haoyu
+Group=haoyu
+WorkingDirectory=/home/haoyu/mediamtx
+ExecStart=/home/haoyu/mediamtx/mediamtx /home/haoyu/mediamtx.yml
+Restart=always
+RestartSec=2
+TimeoutStopSec=5
+
+[Install]
+WantedBy=multi-user.target
