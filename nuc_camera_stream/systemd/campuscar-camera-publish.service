@@ -1,0 +1,19 @@
+[Unit]
+Description=CampusCar UVC camera publisher to MediaMTX
+Wants=network-online.target
+After=network-online.target campuscar-mediamtx.service
+Requires=campuscar-mediamtx.service
+
+[Service]
+Type=simple
+User=haoyu
+Group=haoyu
+SupplementaryGroups=video
+ExecStart=/usr/bin/ffmpeg -hide_banner -loglevel warning -f v4l2 -input_format mjpeg -video_size 1280x720 -framerate 15 -i /dev/video0 -an -map 0:v:0 -c:v libx264 -preset ultrafast -tune zerolatency -pix_fmt yuv420p -g 30 -f rtsp -rtsp_transport tcp rtsp://127.0.0.1:8554/robot_cam
+Restart=always
+RestartSec=3
+TimeoutStopSec=5
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target
