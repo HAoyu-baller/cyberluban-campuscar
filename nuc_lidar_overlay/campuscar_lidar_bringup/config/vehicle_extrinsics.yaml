@@ -1,0 +1,14 @@
+vehicle_lidar:
+  ros__parameters:
+    parent_frame: base_link
+    child_frame: livox_frame
+    x_m: 0.0
+    y_m: 0.0
+    z_m: 0.58
+    roll_rad: 0.0
+    pitch_rad: 0.0
+    yaw_rad: 0.0
+    notes: >-
+      First measured installation estimate: the Mid-360 is centered over the
+      vehicle and 0.58 m above the ground/base_link origin. Verify heading and
+      level after the vehicle is placed on a flat surface.
