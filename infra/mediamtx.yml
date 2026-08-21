@@ -1,0 +1,24 @@
+###############################################
+# MediaMTX streams for CampusCar
+###############################################
+
+rtspAddress: :8554
+protocols: [tcp]
+hlsAddress: :8888
+hlsAlwaysRemux: yes
+hlsVariant: lowLatency
+authMethod: internal
+logLevel: info
+logDestinations: [stdout]
+
+paths:
+  robot_cam:
+    publishUser:
+    publishPass:
+    readUser:
+    readPass:
+  robot_cam_ai:
+    publishUser:
+    publishPass:
+    readUser:
+    readPass:
