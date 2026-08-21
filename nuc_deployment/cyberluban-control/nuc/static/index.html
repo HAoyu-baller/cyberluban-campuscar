@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111713" />
+    <title>Cyber 鲁班 · 小车控制台</title>
+    <link rel="stylesheet" href="/static/style.css?v=8" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">CYBER LUBAN / NUC CONTROL / WEB V7</p>
+          <h1>小车控制台</h1>
+        </div>
+        <div class="status-cluster" aria-live="polite">
+          <span id="networkBadge" class="badge badge-off">网页未连接</span>
+          <span id="serialBadge" class="badge badge-off">ESP32 未连接</span>
+        </div>
+      </header>
+
+      <section class="safety-strip">
+        <span class="safety-dot"></span>
+        <p>松开方向键立即停止运动；页面失焦、网络超时或串口重连会自动急停。</p>
+      </section>
+
+      <div class="dashboard-grid">
+        <section class="panel control-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-kicker">DRIVE</p>
+              <h2>方向控制</h2>
+            </div>
+            <span id="controlBadge" class="control-state">未取得控制权</span>
+          </div>
+
+          <div class="key-grid" aria-label="方向控制按钮">
+            <button class="key key-up" data-movement="w" aria-label="前进，W 键">
+              <span class="key-letter">W</span><span>前进</span>
+            </button>
+            <button class="key key-left" data-movement="a" aria-label="左转，A 键">
+              <span class="key-letter">A</span><span>左转</span>
+            </button>
+            <button class="key key-down" data-movement="s" aria-label="后退，S 键">
+              <span class="key-letter">S</span><span>后退</span>
+            </button>
+            <button class="key key-right" data-movement="d" aria-label="右转，D 键">
+              <span class="key-letter">D</span><span>右转</span>
+            </button>
+          </div>
+
+          <div class="activity-row">
+            <div>
+              <span class="label">当前动作</span>
+              <strong id="movementValue">停止</strong>
+            </div>
+            <div>
+              <span class="label">喷水状态</span>
+              <strong id="sprayValue">关闭</strong>
+            </div>
+            <div>
+              <span class="label">视觉授权</span>
+              <strong id="visionSprayValue">未授权</strong>
+            </div>
+            <div>
+              <span class="label">雷达保护</span>
+              <strong id="radarSafetyValue">已关闭</strong>
+            </div>
+          </div>
+        </section>
+
+        <aside class="panel command-panel">
+          <div class="panel-heading compact">
+            <div>
+              <p class="section-kicker">SESSION</p>
+              <h2>连接与安全</h2>
+            </div>
+          </div>
+
+          <label class="token-field">
+            <span>控制口令</span>
+            <input id="tokenInput" type="password" autocomplete="current-password" placeholder="输入 NUC 安装时生成的口令" />
+          </label>
+          <button id="claimButton" class="button button-primary">取得控制权</button>
+
+          <button id="releaseButton" class="button button-release" disabled>
+            释放控制权（给校园大脑）
+          </button>
+
+          <button id="activateButton" class="button button-activate" disabled>
+            <span class="shortcut">G</span> 激活 / 校准 PWM
+          </button>
+          <p class="activate-hint">校准会先急停，再发送组合手势；请等待蜂鸣提示或日志显示 GESTURE COMPLETE。</p>
+
+          <div class="spray-controls">
+            <button id="sprayOnButton" class="button button-water">
+              <span class="shortcut">K</span> 开始喷水
+            </button>
+            <button id="sprayOffButton" class="button button-neutral">
+              <span class="shortcut">L</span> 停止喷水
+            </button>
+          </div>
+
+          <div class="spray-controls">
+            <button id="visionSprayOnButton" class="button button-water" disabled>
+              启用视觉喷水
+            </button>
+            <button id="visionSprayOffButton" class="button button-neutral" disabled>
+              关闭视觉喷水
+            </button>
+          </div>
+          <p class="activate-hint">视觉喷水授权独立于运动控制权，不会阻止校园大脑控制车辆。</p>
+
+          <section class="radar-safety-controls" aria-label="雷达避障保护">
+            <div class="radar-safety-heading">
+              <div>
+                <span class="label">运动安全</span>
+                <strong>雷达避障保护</strong>
+              </div>
+              <label class="switch" title="启用或关闭雷达避障保护">
+                <input id="radarSafetyToggle" type="checkbox" />
+                <span class="switch-track" aria-hidden="true"></span>
+              </label>
+            </div>
+            <p id="radarSafetyDetail" class="activate-hint">当前不拦截运动指令。</p>
+          </section>
+
+          <button id="emergencyButton" class="emergency-button">
+            <span class="emergency-key">SPACE</span>
+            <span><strong>强制停止一切</strong><small>运动、喷水和待执行指令</small></span>
+          </button>
+
+          <div id="messageBox" class="message-box" role="status">等待连接 NUC…</div>
+        </aside>
+      </div>
+
+      <section class="panel reference-panel">
+        <div>
+          <p class="section-kicker">KEY MAP</p>
+          <h2>键盘说明</h2>
+        </div>
+        <div class="reference-list">
+          <span><kbd>W</kbd> 前进</span>
+          <span><kbd>S</kbd> 后退</span>
+          <span><kbd>A</kbd> 左转</span>
+          <span><kbd>D</kbd> 右转</span>
+          <span><kbd>G</kbd> 激活/校准</span>
+          <span><kbd>K</kbd> 喷水</span>
+          <span><kbd>L</kbd> 停水</span>
+          <span class="danger-reference"><kbd>空格</kbd> 急停</span>
+        </div>
+      </section>
+    </main>
+
+    <script src="/static/app.js?v=8" defer></script>
+  </body>
+</html>
