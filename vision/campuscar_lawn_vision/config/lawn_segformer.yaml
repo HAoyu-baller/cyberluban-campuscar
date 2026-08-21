@@ -1,0 +1,22 @@
+lawn_segformer:
+  ros__parameters:
+    source_url: rtsp://127.0.0.1:8554/robot_cam
+    annotated_rtsp_url: rtsp://127.0.0.1:8554/robot_cam_ai
+    annotated_video_fps: 15.0
+    enable_annotated_stream: true
+    model_id: nvidia/segformer-b0-finetuned-ade-512-512
+    frame_id: camera_link
+    process_width: 640
+    publish_fps: 1.0
+    torch_threads: 4
+    stable_confirm_frames: 3
+    stable_clear_frames: 3
+    grass_min_ratio: 0.05
+    grass_min_confidence: 0.45
+    jpeg_quality: 80
+    output_topic: /vision/lawn/result
+    debug_topic: /vision/lawn/debug/compressed
+    mask_topic: /vision/lawn/mask/compressed
+    spray_bridge_enabled: true
+    spray_bridge_url: http://127.0.0.1:8000/api/vision-spray
+    spray_bridge_timeout_s: 0.4
