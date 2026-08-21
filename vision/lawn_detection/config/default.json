@@ -1,0 +1,16 @@
+{
+  "h_min": 30,
+  "h_max": 95,
+  "s_min": 45,
+  "v_min": 30,
+  "exg_min": 20,
+  "blur_kernel": 5,
+  "morph_kernel": 7,
+  "min_component_area_ratio": 0.003,
+  "min_total_coverage": 0.04,
+  "min_largest_component_ratio": 0.02,
+  "roi_top_ratio": 0.0,
+  "confirm_frames": 5,
+  "clear_frames": 3,
+  "confidence_ema_alpha": 0.3
+}
