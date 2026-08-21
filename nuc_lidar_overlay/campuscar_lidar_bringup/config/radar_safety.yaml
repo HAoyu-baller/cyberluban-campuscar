@@ -1,0 +1,16 @@
+radar_safety:
+  ros__parameters:
+    input_topic: /livox/lidar
+    control_url: http://127.0.0.1:8000
+    detection_radius_m: 0.5
+    min_obstacle_points: 30
+    min_azimuth_bins: 3
+    azimuth_bins: 36
+    lidar_height_m: 0.58
+    min_height_above_ground_m: 1.0
+    max_height_above_ground_m: 2.0
+    self_filter_half_length_m: 0.42
+    self_filter_half_width_m: 0.24
+    self_filter_top_above_ground_m: 0.45
+    cloud_timeout_s: 0.5
+    http_timeout_s: 0.35
