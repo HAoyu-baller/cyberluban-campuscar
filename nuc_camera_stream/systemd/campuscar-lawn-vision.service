@@ -1,0 +1,23 @@
+[Unit]
+Description=CampusCar lawn segmentation and annotated camera stream
+Wants=network-online.target
+After=network-online.target campuscar-mediamtx.service campuscar-camera-publish.service
+Requires=campuscar-mediamtx.service campuscar-camera-publish.service
+
+[Service]
+Type=simple
+User=haoyu
+Group=haoyu
+WorkingDirectory=/home/haoyu/campuscar_ws
+EnvironmentFile=-/etc/cyberluban-control.env
+Environment=ROS_DOMAIN_ID=0
+Environment=ROS_LOCALHOST_ONLY=0
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/bin/bash -lc 'source /opt/ros/humble/setup.bash && source /home/haoyu/campuscar_ws/install/setup.bash && exec ros2 launch campuscar_lawn_vision lawn_segformer.launch.py'
+Restart=always
+RestartSec=5
+TimeoutStopSec=15
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target
