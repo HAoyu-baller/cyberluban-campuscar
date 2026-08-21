@@ -1,0 +1,73 @@
+# OS/editor metadata
+.DS_Store
+.idea/
+.vscode/
+.claude/
+*.swp
+*.swo
+
+# Python/build/runtime output
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+build/
+install/
+log/
+devel/
+*.log
+
+# Local environments and secrets
+.env
+.env.*
+!.env.example
+*.key
+*.crt
+*.pem
+*.p12
+*.jks
+secrets/
+
+# ROS and robot runtime artifacts
+*.bag
+*.db3
+*.lvx
+mid360_capture/
+camera_logs/
+lawn_validation/
+
+# Large media and generated previews
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.jpg
+*.jpeg
+*.png
+*.webp
+
+# Vendor applications/SDK distributions and generated ROS 1 workspace files
+RTK/UPrecise/
+RTK/Witmotion(V2025.7.8.0)/
+RTK/ROS_RTK/catkin_ws/build/
+RTK/ROS_RTK/catkin_ws/devel/
+RTK/ROS_RTK/catkin_ws/install/
+
+# Historical examples containing embedded credentials. Keep the current
+# credential-free ROS 2 implementation and hardware documentation instead.
+RTK/Ntrip2Uart.py
+RTK/ROS_RTK/catkin_ws/src/gps_ntrip_py/
+RTK/rtsp问题排查.txt
+
+# Host-specific unrelated configuration
+bootpd.plist
+
+# Local deployment scratch files
+nuc_deployment/.cache/
+nuc_deployment/tmp/
+nuc_snapshots/
