@@ -1,0 +1,11 @@
+rtk_serial_reader:
+  ros__parameters:
+    port: /dev/serial/by-id/usb-AirM2M_AirM2M_Compo_000000000001-if06
+    baud: 115200
+    frame_id: gps_link
+    reconnect_delay_s: 2.0
+
+rtk_bridge:
+  ros__parameters:
+    timeout_s: 2.5
+    allow_float: false
